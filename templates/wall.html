@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ name }}'s Wall</title>
+    <style>
+        *{
+            font-family: sans-serif;
+        }
+        body{
+            background-color: aliceblue;
+        }
+        textarea{
+            width: 300px;
+            height: 100px;
+        }
+        hr{
+           size: 30;
+           color: crimson;
+        }
+
+        .mail{
+            background-color: moccasin;
+            padding: 5px;
+            width: 200px;
+            height: auto;
+            font-family: 'Comic Sans MS', sans-serif;
+            display: inline-block;
+            margin: 0px 5px 5px 0px;
+            border: sienna 2px solid;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h2>{{ name }}'s Wall</h2>
+        <form action="/reset" method="GET">
+            <input type="submit" value="Log Off">
+        </form>
+    </header>
+
+    <div class="messages">
+        <h3>{{ msgCount }} {{ noun }} for you ({{ name }})</h3>
+        <hr>
+        {% for m in inbox %}
+        <div class="mail">
+            <h6>Sent: {{ m['created_at'] }}</h6>
+            {{ m['message'] }}
+            <form action="/delete" method="POST">
+                <input type="hidden" name="delete" value="{{ m['id_messages'] }}">
+                <input type="submit" value="Delete">
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="send_msg">
+        <h3>Send a Message</h3>
+        <h5>You have sent {{outbox}} messages so far.</h5>
+    </div>
+
+    {% for i in users%}
+        <hr>
+        <div class="msgr"></div>
+            <h4>{{ i['first_name'] +' '+ i['last_name'] }}</h4>
+            <form action="/send" method="POST">
+                <textarea name="kite"></textarea>
+                <br>
+                <input type="hidden" name="msg_to" value="{{ i['id_users'] }}">
+                <input type="submit" value="Send">
+            </form>
+        </div>
+    {% endfor %}
+</body>
+</html>

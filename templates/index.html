@@ -1,0 +1,78 @@
+<!-- wall -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login & Registration</title>
+    <style>
+
+        label{ 
+            margin-right: 50px;
+        }
+        input{
+            display: inline-block;
+            
+        }
+        .reg_block, .login_block{
+            width: 300px;
+            display: inline-block;
+            vertical-align: top;
+            margin: 20px;
+        }
+        .red{
+            color: red;
+        }
+    
+    </style>
+</head>
+<body>
+    <h1>Registration & Login Page</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages: %}
+        <ul>
+            {% for message in messages %}
+                <li class='red'>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="reg_block">
+        <h3>Register here!</h3>
+        <form action="/process" method="POST">
+            <input type="hidden" name="reg" value="new_user">
+            <label>First Name:</label>
+            <input type="text" name="first"></input>
+            <br>
+            <label>Last Name:</label>
+            <input type="text" name="last"></input>
+            <br>
+            <label>Email Address:</label>
+            <input type="text" name="email"></input>
+            <br>
+            <label>Password:</label>
+            <input type="password" name="pass1"></input>
+            <br>
+            <label>Password Confirm:</label>
+            <input type="password" name="pass2"></input>
+            <br>
+            <input type="submit" value="Register Me!"/>
+        </form>
+    </div>
+
+    <div class="login_block">
+        <h3>Login Here!</h3>
+        <form action="/process" method="POST">
+            <input type="hidden" name="reg" value="login">
+            <label>Email Address:</label>
+            <input type="text" name="email"></input>
+            <br>
+            <label>Password:</label>
+            <input type="password" name="password"></input>
+            <br>
+            <input type="submit" value="Login!"/>
+        </form>
+    </div>
+</body>
+</html>
